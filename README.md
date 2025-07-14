@@ -20,25 +20,23 @@ Este projeto é uma API RESTful desenvolvida com **NestJS** para gerenciamento d
 
 ## 🗂️ Estrutura de Pastas
 
+```
 src/
 ├── categoria/
-│ ├── categoria.controller.ts
-│ ├── categoria.service.ts
-│ ├── categoria.repository.ts
-│ ├── categoria.entity.ts
-│ └── categoria.module.ts
+│   ├── categoria.controller.ts
+│   ├── categoria.service.ts
+│   ├── categoria.repository.ts
+│   ├── categoria.entity.ts
+│   └── categoria.module.ts
 ├── produto/
-│ ├── produto.controller.ts
-│ ├── produto.service.ts
-│ ├── produto.repository.ts
-│ ├── produto.entity.ts
-│ └── produto.module.ts
+│   ├── produto.controller.ts
+│   ├── produto.service.ts
+│   ├── produto.repository.ts
+│   ├── produto.entity.ts
+│   └── produto.module.ts
 ├── app.module.ts
 └── main.ts
-
-bash
-Copiar
-Editar
+```
 
 ## ⚙️ Como Executar o Projeto
 
@@ -46,29 +44,27 @@ Editar
 ```bash
 git clone https://github.com/seu-usuario/CRUD-Farmacia.git
 cd CRUD-Farmacia
-Instale as dependências:
+```
 
-bash
-Copiar
-Editar
+2. Instale as dependências:
+```bash
 npm install
-Configure as variáveis de ambiente em um arquivo .env:
+```
 
-env
-Copiar
-Editar
+3. Configure as variáveis de ambiente em um arquivo `.env`:
+```env
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=seu_usuario
 DB_PASSWORD=sua_senha
 DB_DATABASE=farmacia
-Execute o projeto:
+```
 
-bash
-Copiar
-Editar
+4. Execute o projeto:
+```bash
 npm run start:dev
+```
 
+## 👩‍💻 Autora
 
-👩‍💻 Autora
-Desenvolvido por Vanessa Oliveira.
+Desenvolvido por **Vanessa Targino**.
