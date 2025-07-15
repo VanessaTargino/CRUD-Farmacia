@@ -38,32 +38,6 @@ src/
 └── main.ts
 ```
 
-## ⚙️ Como Executar o Projeto
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/seu-usuario/CRUD-Farmacia.git
-cd CRUD-Farmacia
-```
-
-2. Instale as dependências:
-```bash
-npm install
-```
-
-3. Configure as variáveis de ambiente em um arquivo `.env`:
-```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=seu_usuario
-DB_PASSWORD=sua_senha
-DB_DATABASE=farmacia
-```
-
-4. Execute o projeto:
-```bash
-npm run start:dev
-```
 
 ## 👩‍💻 Autora
 
