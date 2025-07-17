@@ -1,3 +1,4 @@
+import { CategoriaService } from './../../Categoria/services/categoria.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'; // importar o decorador Injectable para permitir a injeção de dependências
 import { InjectRepository } from '@nestjs/typeorm'; // importar o decorador InjectRepository para injetar o repositório entidade Produto
 import { DeleteResult, ILike, Repository } from 'typeorm'; // importar a classe Repository para realizar operações no banco de dados
@@ -7,16 +8,24 @@ import { Produto } from '../entities/produto.entity'; // importar a entidade Pro
 export class ProdutoService {
   constructor(
     @InjectRepository(Produto) // injetar o repositório da entidade Produto
-    private readonly produtoRepository: Repository<Produto>, // repositório para realizar operações CRUD na entidade Produto
+    private produtoRepository: Repository<Produto>, // repositório para realizar operações CRUD na entidade Produto
+    private categoriaService: CategoriaService, // injetar o serviço CategoriaService
   ) {}
 
   async findAll(): Promise<Produto[]> {
-    return this.produtoRepository.find(); // retorna todos os produtos do banco de dados
+    return this.produtoRepository.find({
+      relations: {
+        categoria: true, // carrega a categoria relacionada ao produto
+      },
+    }); // retorna todos os produtos do banco de dados
   }
 
   async findById(id: number): Promise<Produto> {
     const produto = await this.produtoRepository.findOne({
       where: { id }, // busca um produto pelo ID
+      relations: {
+        categoria: true, // carrega a categoria relacionada ao produto
+      },
     });
 
     if (!produto) {
@@ -34,15 +43,20 @@ export class ProdutoService {
       where: {
         nome: ILike(`%${nome}%`),
       }, // busca produtos pelo nome
+      relations: {
+        categoria: true, // carrega a categoria relacionada ao produto
+      },
     });
   }
-  async create(Produto: Produto): Promise<Produto> {
-    return this.produtoRepository.save(Produto); // salva um novo produto no banco de dados
+  async create(produto: Produto): Promise<Produto> {
+    await this.categoriaService.findById(produto.categoria.id); // verifica se a categoria existe antes de criar o produto
+    return this.produtoRepository.save(produto); // salva um novo produto no banco de dados
   }
 
   async update(produto: Produto): Promise<Produto> {
     await this.findById(produto.id); // verifica se o produto existe antes de atualizar
 
+    await this.categoriaService.findById(produto.categoria.id); // verifica se a categoria existe antes de atualizar o produto
     if (!produto.id) {
       // se o ID do produto não for fornecido, lança uma exceção HTTP com status 400 (Bad Request)
       throw new HttpException(

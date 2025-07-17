@@ -2,9 +2,11 @@ import { IsNotEmpty } from 'class-validator'; // implementar as regras de valida
 import {
   Column,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'; // realizar a interação com o banco de dados
+import { Categoria } from '../../Categoria/entities/categoria.entity';
 
 @Entity({ name: 'tb_produtos' }) // nome da tabela no banco de dados
 export class Produto {
@@ -32,7 +34,8 @@ export class Produto {
   @UpdateDateColumn() // coluna que armazena a data da última atualização do registro
   data: Date;
 
-  //@ManyToOne(() => Categoria, { eager: true, onDelete: 'CASCADE' })
-  //@JoinColumn({ name: 'categoria_id' })
-  //categoria: Categoria;
+  @ManyToOne(() => Categoria, (categoria) => categoria.produto, {
+    onDelete: 'CASCADE',
+  })
+  categoria: Categoria; // relacionamento muitos-para-um com a entidade Categoria, onde um produto pertence a uma categoria
 }
