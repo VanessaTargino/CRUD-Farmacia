@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProdutoModule } from './produto/produto.module'; // importar o módulo Produto
+import { Produto } from './produto/entities/produto.entity';
 
 @Module({
   imports: [
@@ -10,9 +12,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'Pdg@@2022',
       database: 'db_crudfarmacia',
-      entities: [],
+      entities: [Produto],
       synchronize: true,
     }),
+    ProdutoModule, // registrar o módulo Produto
   ],
   controllers: [],
   providers: [],
